@@ -16,7 +16,6 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { MatButtonModule, MatInputModule, MatDialogModule} from '@angular/material';
-
 import { MatTooltipModule,  } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -40,6 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         MatDialogModule,
         MatButtonModule,
         MatInputModule,
+
         // MatDialog,
         // BrowserAnimationsModule,
         // ReactiveFormsModule,

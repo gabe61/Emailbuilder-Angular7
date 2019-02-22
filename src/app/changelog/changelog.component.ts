@@ -820,7 +820,38 @@ export class ChangeLogComponent implements OnInit, AfterViewInit {
 
 
     }
+    InputFileChange (event: EventTarget, id) {
+        console.log('inputfilechange', event[0].name);
+        // this.currentElement.options[id] = event[0].name;
+    }
+    paddingChange (padding_val, ikey, i) {
 
+        var paddingArray = this.currentElement.options[ikey].split(',');
+        var tmp = "";
+        for (var k =0; k<4; k++){
+            if(k === i) {
+                if(k) tmp += ' ,';
+                tmp += padding_val;
+            }else {
+                if(k) tmp += ' ,';
+                tmp += paddingArray[k];
+            }
+        }
+        this.currentElement.options[ikey] = tmp;
+        // console.log('paddingChange', tmp, paddingArray, this.currentElement.options[ikey]);
+        // this.currentElement.options[item.key]
+    }
+    sideSave () {
+        // console.log('saveEmailTemplate');
+        // localStorage.setItem('whatever', 'something');
+        this.Email.html = this.utils.stripTags($('.builder .email-container').html(), this.Email);
+        // console.log('this.Email', this.Email.html, "JSON"+JSON.stringify(this.Email));
+        // $scope.Email = is what you need to save
+        localStorage.setItem('Email',JSON.stringify(this.Email));
+        this.currentLocalStorage = 'Email';
+        // this.currentElement = null;
+        return true;
+    }
     cloneElement(id) {
         var el = this.utils.findWhere(this.Email.elements, {id: id});
         var newEl = JSON.parse(JSON.stringify(el));

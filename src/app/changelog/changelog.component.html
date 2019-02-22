@@ -74,16 +74,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="md-card" *ngIf="currentElement" (click) = "side_bar_function(currentElement)">
+		<div class="md-card" *ngIf="currentElement" (click) = "side_bar_function(currentElement)" style="z-index:1000;">
 			<div class="md-card-content">
+				<i *ngIf="!!currentElement" class="actions md-icon component-material-icons close md-color-red-600" title="{{'close_element_settings'}}" (click)="editElement(null)">close</i>
+				<i class="actions md-icon component-material-icons save md-color-green-600" title="{{'email_save' }}" [ngClass]="{disabled: !hasChanges()}"   (click)="sideSave()">save</i>
+
 				<form action="#" onsubmit="return true">
 					<div *ngFor="let item of currentElement.options | keyvalue; trackBy:trackByFn" class="email-builder-element-edit-field">
+
 						<!--<div *ngIf="true">-->
 							<div *ngIf="item.key.indexOf('image') > -1" class="form-row">
 								<!--{{item.key}} : {{currentElement.options[item.key]}}-->
 								<mat-form-field>
 									<label for="{{item.key}}" class="md-label" >Image Url</label>
+									<div style="display: flex;">
 									<input name="{{item.key}}" id="{{item.key}}" class="md-input" matInput  (change)="onFileSelectec($event)" [(ngModel)]="currentElement.options[item.key]" />
+
+									<button type="button" class="md-icon upload-icon">
+										<label for="fileUp">
+											<i class="material-icons">file_upload</i>
+										</label>
+									</button>
+									</div>
+									<input #file hidden id="fileUp" name="file" type="file" style="width:280px; margin-top:-35px; position: absolute;" (change) = "InputFileChange(file.files, item.key)" >
 								</mat-form-field>
 							</div>
 							<!--{{ item.key.substring(0, 4)}}-->
@@ -132,10 +145,24 @@
 
 							<div *ngIf="item.key == 'padding'" class="form-row padding-inputs">
 								<!--{{item.key}}:{{item.value}}-->
-								<mat-form-field>
+								<!--<mat-form-field>-->
 									<label for="builder_el_o_top" class="md-label" translate="Top">[Top, Right, Bottom, Left]</label>
-									<input name="{{item.key}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="currentElement.options[item.key]">
-								</mat-form-field>
+									<!--<input name="{{item.key}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="currentElement.options[item.key]">-->
+									<div style="display:flex;">
+										<!--{{currentElement.options[item.key]}}-->
+										<div *ngFor="let padding_val of  currentElement.options[item.key].split(','); let i = index" style="width:20%">
+											<mat-form-field>
+												<input name="{{item.key+i}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="padding_val" (change) = "paddingChange(padding_val, item.key, i)">
+											</mat-form-field>
+										</div>
+									</div>
+
+									<!--<input name="{{item.key}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="currentElement.options[item.key]">-->
+									<!--<input name="{{item.key}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="currentElement.options[item.key]">-->
+									<!--<input name="{{item.key}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="currentElement.options[item.key]">-->
+									<!--<input name="{{item.key}}" id="builder_el_o_top" type="text" class="md-input" matInput [(ngModel)] ="currentElement.options[item.key]">-->
+
+								<!--</mat-form-field>-->
 								<!--<label for="builder_el_o_right" class="md-label" translate="Right">Right</label>-->
 								<!--<input name="{{item.key+'02'}}" id="builder_el_o_right" type="text" class="md-input" [(ngModel)]="currentElement.options[item.key][1]">-->
 
