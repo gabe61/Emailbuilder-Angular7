@@ -33,7 +33,7 @@ export class ChangeLogComponent implements OnInit, AfterViewInit {
             copy: false,
             copySortSource: false,
             moves: function (el, source, handle, sibling) {
-                // console.log('move', this.Email_elements);
+                // console.log('move', this.Email.elements);
                 return $(handle).hasClass('move');
             },
             invalid: function (el, handle) {
@@ -858,6 +858,8 @@ export class ChangeLogComponent implements OnInit, AfterViewInit {
         newEl.id = this.utils.uid();
         this.utils.trackEvent('Elements', 'clone', newEl.type);
         this.Email.elements.splice(this.Email.elements.indexOf(el) + 1, 0, newEl);
+
+        console.log('==>', this.Email);
         // setTimeout(function () {
         //     $( ".resizable" ).resizable();
         // },100);

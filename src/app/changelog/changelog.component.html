@@ -61,7 +61,7 @@
 
 			<div id="myemailcontainer" class="builder">
 
-				<div class="email-container" dragula="element-html" [ngClass]="{'empty':true}">
+				<div class="email-container" dragula="element-html" [(dragulaModel)]="Email.elements" [ngClass]="{'empty':true}">
 					<div class="builder-element"  *ngFor="let element of Email.elements"  style="width: 100%" id= "{{element.id}}">
 						<!--<app-device src="{{getTemplate(Email_element.type)}}" (click)="onloadfunction(Email_element.type)"></app-device>-->
 						<div class="actions" id="{{element.id}}" [innerHtml] ="getTemplate( element )"></div>
